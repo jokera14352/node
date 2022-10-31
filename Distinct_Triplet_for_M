@@ -1,0 +1,37 @@
+#include<iostream>
+#include<vector>
+
+using namespace std ;
+
+
+// We assume that whichever 3 number we selected should be in non decreasing order
+// So i<=j<=k 
+int main(){
+	int n,m ;
+	cin>>n>>m ;
+	int a[n],b[m]={} ;
+	for(int i=0 ; i<n ; i++) cin>>a[i] , b[a[i]%m]++ ;
+	int cnt=0 ;
+	for(int i=0 ; i<m ; i++){
+		for(int j=i ; j<m ; j++){
+			int k=m-(i+j)%m ;
+			k = k%m ;
+			if (k<j)
+				continue ;
+			if (i==j && j==k) 	
+				cnt+=(b[i]*(b[i]-1)*(b[i]-2))/6 ;
+			else if (i==j)
+				cnt+=b[k]*(b[i]*(b[i]-1))/2 ;
+			else if (j==k)
+				cnt+=b[i]*(b[j]*(b[j]-1))/2 ;
+			else
+				cnt+=b[i]*b[j]*b[k] ;
+		}
+	}
+	cout<<cnt<<endl ;
+
+	return 0 ;
+}
+// INPUT : 10 5
+//         1 10 4 3 2 5 0 1 9 5
+// OUTPUT : 26
